@@ -1,7 +1,8 @@
 package main
 
 // Euclid's Algorithm
-func GCD(u, v int) int {
+
+func GCDIterative(u, v int) int {
 	var t int
 	for u > 0 {
 		if u < v {
@@ -12,4 +13,13 @@ func GCD(u, v int) int {
 		u = u - v
 	}
 	return v
+}
+
+func GCDRecursive(p, q int) int {
+	if q == 0 {
+		return p
+	}
+
+	r := p % q
+	return GCDRecursive(q, r)
 }
