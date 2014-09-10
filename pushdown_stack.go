@@ -1,35 +1,37 @@
 package main
 
-// Node is defined already
+type StackItem struct {
+	Value int
+	Next  *StackItem
+}
 
 type PushdownStack struct {
-	Head, Z *Node
+	Top *StackItem
 }
 
 func NewPushdownStack() *PushdownStack {
-	stack := &PushdownStack{
-		Head: &Node{},
-		Z:    &Node{},
-	}
-
-	stack.Head.Next = stack.Z
-	stack.Head.Key = 0
-	stack.Z.Next = stack.Z
-
-	return stack
+	return &PushdownStack{}
 }
 
-func (stack *PushdownStack) Push(v int) {
-	t := &Node{v, stack.Head.Next}
-	stack.Head.Next = t
+func (stack *PushdownStack) Push(value int) {
+	stack.Top = &StackItem{value, stack.Top}
+}
+
+func (stack *PushdownStack) Peek() int {
+	return stack.Top.Value
 }
 
 func (stack *PushdownStack) Pop() int {
-	t := stack.Head.Next
-	stack.Head.Next = t.Next
-	return t.Key
+	top := stack.Top
+
+	if top != nil {
+		stack.Top = top.Next
+		return top.Value
+	}
+
+	return 0
 }
 
 func (stack *PushdownStack) IsEmpty() bool {
-	return stack.Head.Next == stack.Z
+	return stack.Top == nil
 }
