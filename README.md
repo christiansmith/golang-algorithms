@@ -3,6 +3,11 @@ Algorithms in Go
 
 This repository is a notebook for data structures and algorithms implemented in [Go](http://golang.org/). Examples are derived from sources listed in [references](#references). Each example is in a separate file, with a corresponding file for tests and benchmarks. Since I am new to Go, some code may not be idiomatic. To suggest an improvement, please submit a pull request or create an issue. 
 
+<a href="https://www.google.com/calendar/selfsched?sstoken=UUx1dWZaTzBaY2lCfGRlZmF1bHR8MGViMzcyZDg0OTUyOGZkOTNjM2M2ZDMxMmYwMWM0Yjg" title="Pair program with me!">
+  <img  src="http://pairprogramwith.me/badge.png"
+        alt="Pair program with me!" />
+</a>
+
 ### Running Tests
 
 ```bash
