@@ -43,35 +43,35 @@ func TestPushdownStackPop(t *testing.T) {
 }
 
 func BenchmarkPushdownStackPush(b *testing.B) {
+	b.StopTimer()
 	stack := NewPushdownStack()
 
-	b.ResetTimer()
-
+	b.StartTimer()
 	for n := 0; n < b.N; n++ {
 		stack.Push(n)
 	}
 }
 
 func BenchmarkPushdownStackPeek(b *testing.B) {
+	b.StopTimer()
 	stack := NewPushdownStack()
 	stack.Push(1324)
 	stack.Push(2435)
-	b.ResetTimer()
 
+	b.StartTimer()
 	for n := 0; n < b.N; n++ {
 		stack.Peek()
 	}
 }
 
 func BenchmarkPushdownStackPop(b *testing.B) {
+	b.StopTimer()
 	stack := NewPushdownStack()
-
 	for n := 0; n < b.N; n++ {
 		stack.Push(n)
 	}
 
-	b.ResetTimer()
-
+	b.StartTimer()
 	for n := 0; n < b.N; n++ {
 		stack.Pop()
 	}
