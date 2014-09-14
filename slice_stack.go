@@ -1,32 +1,68 @@
 package main
 
-type Stack struct {
-	values []int
-	top    int
+// We don't need struct to wrap the slice,
+// since there are no properties to keep
+// track of. Instead, simply alias the type
+// "slice of int".
+type Stack []int
+
+// This is unnecessary, as we can simply
+// declare of variable of type "Stack".
+// Also, we can use `make(Stack, len, cap)`
+// to preallocate a sufficiently sized array
+// if we know up front approximately how
+// large we need the underlying array to be.
+func NewStack() Stack {
+	var s Stack
+	return s
 }
 
-func NewStack(n int) *Stack {
-	return &Stack{make([]int, n), -1}
+// Push can rely on the built in `append` function.
+func (s *Stack) Push(value int) {
+	*s = append(*s, value)
 }
 
-func (stack *Stack) Push(value int) int {
-	stack.top++
-	stack.values[stack.top] = value
-	return stack.top
-}
+// Because a zero value can be a valid item on the
+// stack, Peek and Pop return two values. The first
+// is the value of the last item, and the second
+// indicates whether or not the array is not empty.
 
-func (stack *Stack) Peek() int {
-	if stack.top >= 0 {
-		return stack.values[stack.top]
+func (s *Stack) Peek() (int, bool) {
+	// dereference the pointer
+	stack := *s
+
+	// ensure the stack is not empty
+	if len(stack) == 0 {
+		return 0, false
 	}
-	return 0
+
+	// peek at the value
+	return stack[len(stack)-1], true
 }
 
-func (stack *Stack) Pop() int {
-	if stack.top >= 0 {
-		value := stack.values[stack.top]
-		stack.top--
-		return value
+func (s *Stack) Pop() (int, bool) {
+	// dereference the pointer
+	stack := *s
+
+	// ensure the stack is not empty
+	if len(stack) == 0 {
+		return 0, false
 	}
-	return 0
+
+	// pop the value
+	index := len(stack) - 1
+	value := stack[index]
+	stack = stack[:index]
+	return value, true
+}
+
+func (s *Stack) Length() int {
+	return len(*s)
+}
+
+func (s *Stack) IsEmpty() bool {
+	if len(*s) == 0 {
+		return true
+	}
+	return false
 }
